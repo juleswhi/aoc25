@@ -34,12 +34,6 @@ let is_repeating_two s =
         String.sub s (len / 2) (len / 2) = String.sub s 0 (len / 2)
     | _ -> false
 
-(*
-is_repeating 3 "124531"
-12 45 31
-map_windows |> all
-*)
-
 let is_repeating s =
   let len = String.length s in
   let range = create_range 2 len in
@@ -58,9 +52,7 @@ let solve_one (xs : string list) =
     |> List.map (fun x -> String.split_on_char '-' x)
     |> List.map (fun x -> int_of_string (List.hd x), (int_of_string (List.hd (List.tl x))))
     |> List.map (fun (hd, tl) -> create_range hd tl)
-    |> List.map (fun r ->
-        r |> List.filter (fun x ->
-            x |> string_of_int |> is_repeating_two))
+    |> List.map (fun r -> r |> List.filter (fun x -> x |> string_of_int |> is_repeating_two))
     |> List.map (fun r -> r |> List.fold_left (+) 0)
     |> List.fold_left (+) 0
 
@@ -71,19 +63,16 @@ let solve_two (xs : string list) =
     |> List.map (fun x -> String.split_on_char '-' x)
     |> List.map (fun x -> int_of_string (List.hd x), (int_of_string (List.hd (List.tl x))))
     |> List.map (fun (hd, tl) -> create_range hd tl)
-    |> List.map (fun r ->
-        r |> List.filter (fun x ->
-            x |> string_of_int |> is_repeating))
+    |> List.map (fun r -> r |> List.filter (fun x -> x |> string_of_int |> is_repeating))
     |> List.map (fun r -> r |> List.fold_left (+) 0)
     |> List.fold_left (+) 0
 
-let part1 input_text = input_text
+let part1 inp = inp
     |> parse
     |> solve_one
     |> string_of_int
 
-let part2 i =
-    i
+let part2 inp = inp
     |> parse
     |> solve_two
     |> string_of_int
